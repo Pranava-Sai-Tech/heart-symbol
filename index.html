@@ -7,18 +7,73 @@
     <style>
         body {
             margin: 0;
+            background-color: black;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: black;
-            overflow: hidden
+            overflow:hidden ;
+        }
+
+        canvas {
+            display: block;
+        }
+        #text {
+            color:red;
+            font-family: Arial, sans-serif; 
+            margin-top: 50px;
+            text-align: center;
+        }
+        #text h1 {
+            font-size: 2rem; /* Size for the main heading */
+            animation: blink 1s infinite; /* Apply the blink animation only to h1 */
+        }
+
+        #text p{
+            color:rgb(21, 40, 215);
+            font-size: 25px;
+        }
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1; /* Fully visible */
+            }
+            50% {
+                opacity: 0; /* Fully transparent */
+            }
         }
        
+
+        @media (max-width: 480px) {
+            body {
+                flex-direction: column;
+            }
+
+            canvas {
+                width: 100%; /* Make canvas responsive */
+                height: auto; /* Maintain aspect ratio */
+            }
+
+            #text {
+                margin-top: 10px; /* Reduce spacing for smaller screens */
+            }
+
+            #text h1 {
+                font-size: 1.5rem; /* Adjust font size */
+            }
+
+            #text p {
+                font-size: 16px; /* Adjust font size */
+            }
+        }
+
     </style>
 </head>
 <body>
     <canvas id="heartCanvas" width="800" height="800"></canvas>
+    <div id="text">
+        <h1>I Love You</h1>
+        <p>Every beat of my heart says one thing <br><br><span style="color: gold;">"You are my forever"</span></p>
+    </div>
     <script>
         const canvas = document.getElementById('heartCanvas');
         const ctx = canvas.getContext('2d');
