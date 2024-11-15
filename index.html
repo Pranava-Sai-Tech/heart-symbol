@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Heart Shape Drawing</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden
+        }
+       
+    </style>
+</head>
+<body>
+    <canvas id="heartCanvas" width="800" height="800"></canvas>
+    <script>
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Function to define the heart shape
+        function heart(t) {
+            const x = 16 * Math.sin(t) ** 3;
+            const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+            return { x, y };
+        }
+
+        let i = 0; // Layer index
+        let t = 0; // Angle index
+
+        // Function to draw the heart line by line
+        function drawHeartLineByLine() {
+            if (i < 10) { // Number of layers
+                ctx.strokeStyle = 'red';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                for (let j = 0; j <= t; j += 2) { // Draw up to the current angle
+                    const angle = j / 10;
+                    const { x, y } = heart(angle);
+                    ctx.lineTo(x * i + canvas.width / 2, -y * i + canvas.height / 2); // Center the heart
+                }
+                ctx.stroke();
+
+                t += 2; // Increment the angle
+                if (t > 100) {
+                    t = 0; // Reset angle for the next layer
+                    i++; // Move to the next layer
+                }
+            }
+            requestAnimationFrame(drawHeartLineByLine); // Call the function again for animation
+        }
+
+        drawHeartLineByLine(); // Start the drawing
+    </script>
+</body>
+</html>
